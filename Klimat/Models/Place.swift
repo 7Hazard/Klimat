@@ -58,6 +58,17 @@ class Place: Identifiable, Equatable, Codable {
         }
         Place.cache.insert(self, at: 0) // Reorder last accessed to top
         
+        // If cached and more fresh than 10 min, serve it
+        if(cachedForecast != nil && Date.now.timeIntervalSince(cachedForecast!.timeFetched) > 60 * 10) {
+            // Update
+            print("TIME SINCE LAST UPDATE: \(Date.now.timeIntervalSince(cachedForecast!.timeFetched))")
+        }
+        else {
+            // Serve cached
+            print("TIME SINCE LAST UPDATE: \(Date.now.timeIntervalSince(cachedForecast!.timeFetched))")
+            return cachedForecast
+        }
+        
         class Json: Decodable {
             class TimeSerie: Decodable {
                 struct Parameter: Decodable {
@@ -96,7 +107,7 @@ class Place: Identifiable, Equatable, Codable {
                 forecasts.append(Forecast(time: time, temp: temp, icon: icon))
             }
             
-            var approvedTime = Place.parseDate(forecastData.approvedTime)
+            let approvedTime = Place.parseDate(forecastData.approvedTime)
             cachedForecast = ForecastGroup(approvedTime, forecasts)
             print("Fresh forecast")
         } catch {
@@ -124,7 +135,6 @@ class Place: Identifiable, Equatable, Codable {
         return isFavourite
     }
     
-    // TODO store by object identifier, not by hash
     private static var cache: [Place] = {
         do {
             if let data = UserDefaults.standard.value(forKey: "places") as? Data {

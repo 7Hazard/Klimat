@@ -18,6 +18,7 @@ struct SearchView: View {
                 NavigationLink(getName(place), destination: ForecastView(place: place))
             }
             .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
+            .disableAutocorrection(true)
             .navigationTitle("Places")
         }
         .onChange(of: searchText) { newInput in

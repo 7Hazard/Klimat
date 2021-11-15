@@ -16,7 +16,7 @@ struct ForecastView: View {
     var body: some View {
         HStack{
             forecast != nil
-            ? Text("Forecast from \(forecast!.approvedTime)")
+            ? Text("Forecast from \(forecast!.approvedTime.formatted())")
                 .foregroundColor(forecast!.outdated ? Color.red : Color.white)
             : Text("Could not fetch forecast").foregroundColor(Color.red)
             Button(action: {
@@ -27,7 +27,7 @@ struct ForecastView: View {
         }
         List(forecast?.forecasts ?? []) { f in
             VStack {
-                Text("\(f.time)")
+                Text("\(f.time.formatted())")
                 HStack {
                     Image("day/\(f.icon)")
                     Text("\(f.temp, specifier: "%.1f")°C")

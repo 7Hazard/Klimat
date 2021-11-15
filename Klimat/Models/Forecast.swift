@@ -19,14 +19,3 @@ class Forecast: Identifiable, Codable {
         self.icon = icon
     }
 }
-
-class ForecastGroup: Identifiable, Codable {
-    let approvedTime: Date
-    let forecasts: [Forecast]
-    var outdated = false
-    
-    init(_ approvedTime: Date, _ forecasts: [Forecast]) {
-        self.approvedTime = approvedTime
-        self.forecasts = forecasts
-    }
-}
