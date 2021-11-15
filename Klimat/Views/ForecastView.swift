@@ -30,7 +30,7 @@ struct ForecastView: View {
                 Text("\(f.time)")
                 HStack {
                     Image("day/\(f.icon)")
-                    Text("\(f.temp, specifier: "%.1f")")
+                    Text("\(f.temp, specifier: "%.1f")°C")
                 }
             }
         }

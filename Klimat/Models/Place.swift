@@ -59,17 +59,17 @@ class Place: Identifiable, Equatable, Codable {
         Place.cache.insert(self, at: 0) // Reorder last accessed to top
         
         class Json: Decodable {
-            let approvedTime: String
-            
             class TimeSerie: Decodable {
-                let validTime: String
-                
                 struct Parameter: Decodable {
                     let name: String
                     let values: [Float]
                 }
+                
+                let validTime: String
                 let parameters: [Parameter]
             }
+            
+            let approvedTime: String
             let timeSeries: [TimeSerie]
         }
         
@@ -81,7 +81,7 @@ class Place: Identifiable, Equatable, Codable {
             var forecasts: [Forecast] = []
             forecasts.reserveCapacity(forecastData.timeSeries.count)
             for ts in forecastData.timeSeries {
-                let time = ts.validTime
+                let time = Place.parseDate(ts.validTime)
                 var temp: Float = 0
                 var icon = 0
                 for param in ts.parameters {
@@ -96,7 +96,8 @@ class Place: Identifiable, Equatable, Codable {
                 forecasts.append(Forecast(time: time, temp: temp, icon: icon))
             }
             
-            cachedForecast = ForecastGroup(forecastData.approvedTime, forecasts)
+            var approvedTime = Place.parseDate(forecastData.approvedTime)
+            cachedForecast = ForecastGroup(approvedTime, forecasts)
             print("Fresh forecast")
         } catch {
             print(error)
@@ -139,5 +140,13 @@ class Place: Identifiable, Equatable, Codable {
     static func getCached() -> [Place] { return cache }
     private static func save() {
         UserDefaults.standard.set(try! JSONEncoder().encode(cache), forKey: "places")
+    }
+    
+    static func parseDate(_ isoDate: String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        let date = dateFormatter.date(from:isoDate)!
+        return date;
     }
 }

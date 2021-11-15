@@ -8,11 +8,11 @@
 import Foundation
 
 class Forecast: Identifiable, Codable {
-    let time: String
+    let time: Date
     let temp: Float
     let icon: Int
     
-    init(time: String, temp: Float, icon: Int)
+    init(time: Date, temp: Float, icon: Int)
     {
         self.time = time
         self.temp = temp
@@ -21,11 +21,11 @@ class Forecast: Identifiable, Codable {
 }
 
 class ForecastGroup: Identifiable, Codable {
-    let approvedTime: String
+    let approvedTime: Date
     let forecasts: [Forecast]
     var outdated = false
     
-    init(_ approvedTime: String, _ forecasts: [Forecast]) {
+    init(_ approvedTime: Date, _ forecasts: [Forecast]) {
         self.approvedTime = approvedTime
         self.forecasts = forecasts
     }
