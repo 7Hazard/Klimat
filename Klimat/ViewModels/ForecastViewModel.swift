@@ -84,7 +84,9 @@ class ForecastViewModel : ObservableObject {
         }
         
         Place.save()
-        place = place // triggers a view state change
+        DispatchQueue.main.async {
+            self.place = self.place // triggers a view state change
+        }
     }
     
     func toggleFavourite() {
