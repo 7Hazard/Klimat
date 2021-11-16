@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct PreferencesView: View {
-    @State private var updateInterval: Double = 10
-    @State private var isEditing = false
+    @StateObject var vm: PreferencesViewModel
     
     var body: some View {
         NavigationView {
@@ -17,28 +16,18 @@ struct PreferencesView: View {
                 VStack{
                     Text("Update Interval")
                     Slider(
-                        value: $updateInterval,
+                        value: $vm.updateInterval,
                         in: 1...60, // Max 60 min
                         onEditingChanged: { editing in
-                            isEditing = editing
-                            if(!isEditing)
-                            {
-                                // Finished editing, apply
-                                Task {
-                                    updateInterval = updateInterval.rounded()
-                                    Preferences.updateInterval = updateInterval
-                                }
-                            }
+                            vm.isEditingUpdateInterval = editing
+                            if(!editing) { vm.apply() }
                         }
                     )
-                    Text("Every \(updateInterval, specifier: "%.0f") minutes")
-                        .foregroundColor(isEditing ? .yellow : .blue)
+                    Text("Every \(vm.updateInterval, specifier: "%.0f") minutes")
+                        .foregroundColor(vm.isEditingUpdateInterval ? .yellow : .blue)
                 }
             }
             .navigationTitle("Preferences")
-            .task {
-                updateInterval = Preferences.updateInterval
-            }
         }
     }
 }

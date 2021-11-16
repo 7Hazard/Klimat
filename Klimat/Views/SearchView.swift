@@ -8,33 +8,19 @@
 import SwiftUI
 
 struct SearchView: View {
-    @State private var places: [Place] = []
-    @State private var searchText: String = ""
-    @State private var searchTask: Task<(), Error>?
+    @StateObject var vm: SearchViewModel
     
     var body: some View {
         NavigationView {
-            List(places) { place in
-                NavigationLink(getName(place), destination: ForecastView(place: place))
+            List(vm.places) { place in
+                NavigationLink(vm.getName(place), destination: ForecastView(vm: ForecastViewModel(place)))
             }
-            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
+            .searchable(text: $vm.searchText, placement: .navigationBarDrawer(displayMode: .always))
             .disableAutocorrection(true)
             .navigationTitle("Places")
         }
-        .onChange(of: searchText) { newInput in
-            if searchText.isEmpty { return }
-            searchTask?.cancel()
-            searchTask = Task {
-                try await Task.sleep(nanoseconds: 500_000_000)
-                places = await Place.search(input: searchText)
-            }
+        .onChange(of: vm.searchText) { newInput in
+            vm.search(newInput)
         }
-    }
-    
-    func getName(_ place: Place) -> String {
-        let countWithSameName = places.filter{ $0.name == place.name }.count
-        return countWithSameName > 1
-        ? "\(place.name) (\(place.lon), \(place.lat))"
-        : place.name
     }
 }

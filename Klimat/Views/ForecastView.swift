@@ -8,29 +8,23 @@
 import SwiftUI
 
 struct ForecastView: View {
-    @State private var forecast: ForecastGroup? = nil
-    @State private var isFavourite = false
-    
-    let place: Place
+    @StateObject var vm: ForecastViewModel
     
     var body: some View {
         VStack {
             // Info
             HStack{
-                forecast != nil
-                ? Text("Forecast from \(forecast!.approvedTime.formatted())")
-                    .foregroundColor(forecast!.outdated ? Color.red : Color.white)
+                vm.place.cachedForecast != nil
+                ? Text("Forecast from \(vm.place.cachedForecast!.approvedTime.formatted())")
+                    .foregroundColor(vm.place.cachedForecast!.outdated ? Color.red : Color.white)
                 : Text("Could not fetch forecast").foregroundColor(Color.red)
-                Button(action: {
-                    place.toggleFavourite()
-                    isFavourite = place.isFavourite
-                }) {
-                    Image(systemName: isFavourite ? "star.fill" : "star")
+                Button(action: { vm.toggleFavourite() }) {
+                    Image(systemName: vm.place.isFavourite ? "star.fill" : "star")
                 }
             }
             
             // List
-            List(forecast?.forecasts ?? []) { f in
+            List(vm.place.cachedForecast?.forecasts ?? []) { f in
                 HStack {
                     Text("\(f.time.formatted())")
                         .font(.system(size: 16))
@@ -42,14 +36,13 @@ struct ForecastView: View {
                 }
             }
             .refreshable {
-                forecast = await place.forecast()
+                await vm.update()
             }
             .task {
-                isFavourite = place.isFavourite
-                forecast = await place.forecast()
+                await vm.update()
             }
             .navigationBarTitleDisplayMode(.inline)
         }
-        .navigationTitle(place.name)
+        .navigationTitle(vm.place.name)
     }
 }

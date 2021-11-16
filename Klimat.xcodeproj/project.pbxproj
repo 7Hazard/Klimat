@@ -14,7 +14,12 @@
 		295B3B6B2742DCD100F8127A /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 295B3B6A2742DCD100F8127A /* .gitignore */; };
 		295B3B6D2742F14500F8127A /* ForecastGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295B3B6C2742F14500F8127A /* ForecastGroup.swift */; };
 		295B3B6F2743300500F8127A /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295B3B6E2743300500F8127A /* PreferencesView.swift */; };
-		295B3B71274337EE00F8127A /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295B3B70274337EE00F8127A /* Preferences.swift */; };
+		295B3B7427435A1500F8127A /* ForecastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295B3B7327435A1500F8127A /* ForecastViewModel.swift */; };
+		295B3B7627435ECE00F8127A /* PreferencesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295B3B7527435ECE00F8127A /* PreferencesViewModel.swift */; };
+		295B3B78274360CE00F8127A /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295B3B77274360CE00F8127A /* Preferences.swift */; };
+		295B3B7A2743632400F8127A /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295B3B792743632400F8127A /* SearchViewModel.swift */; };
+		295B3B7C274366B800F8127A /* RecentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295B3B7B274366B800F8127A /* RecentViewModel.swift */; };
+		295B3B7E27436E2000F8127A /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295B3B7D27436E2000F8127A /* Util.swift */; };
 		298BCBE2273AC86C006EF9BB /* KlimatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298BCBE1273AC86C006EF9BB /* KlimatApp.swift */; };
 		298BCBE4273AC86C006EF9BB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298BCBE3273AC86C006EF9BB /* ContentView.swift */; };
 		298BCBE6273AC86E006EF9BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 298BCBE5273AC86E006EF9BB /* Assets.xcassets */; };
@@ -30,7 +35,12 @@
 		295B3B6A2742DCD100F8127A /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		295B3B6C2742F14500F8127A /* ForecastGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastGroup.swift; sourceTree = "<group>"; };
 		295B3B6E2743300500F8127A /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
-		295B3B70274337EE00F8127A /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		295B3B7327435A1500F8127A /* ForecastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewModel.swift; sourceTree = "<group>"; };
+		295B3B7527435ECE00F8127A /* PreferencesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewModel.swift; sourceTree = "<group>"; };
+		295B3B77274360CE00F8127A /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		295B3B792743632400F8127A /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		295B3B7B274366B800F8127A /* RecentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentViewModel.swift; sourceTree = "<group>"; };
+		295B3B7D27436E2000F8127A /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		298BCBDE273AC86C006EF9BB /* Klimat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Klimat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		298BCBE1273AC86C006EF9BB /* KlimatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KlimatApp.swift; sourceTree = "<group>"; };
 		298BCBE3273AC86C006EF9BB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -68,9 +78,19 @@
 				298BCBF1273AE913006EF9BB /* Place.swift */,
 				295B3B5E273D76FB00F8127A /* Forecast.swift */,
 				295B3B6C2742F14500F8127A /* ForecastGroup.swift */,
-				295B3B70274337EE00F8127A /* Preferences.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		295B3B72274359C400F8127A /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				295B3B7327435A1500F8127A /* ForecastViewModel.swift */,
+				295B3B7527435ECE00F8127A /* PreferencesViewModel.swift */,
+				295B3B792743632400F8127A /* SearchViewModel.swift */,
+				295B3B7B274366B800F8127A /* RecentViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		298BCBD5273AC86C006EF9BB = {
@@ -93,9 +113,12 @@
 		298BCBE0273AC86C006EF9BB /* Klimat */ = {
 			isa = PBXGroup;
 			children = (
+				295B3B72274359C400F8127A /* ViewModels */,
 				295B3B5D273D767200F8127A /* Models */,
 				295B3B5A273D75E400F8127A /* Views */,
 				298BCBE1273AC86C006EF9BB /* KlimatApp.swift */,
+				295B3B77274360CE00F8127A /* Preferences.swift */,
+				295B3B7D27436E2000F8127A /* Util.swift */,
 				298BCBE5273AC86E006EF9BB /* Assets.xcassets */,
 				298BCBE7273AC86E006EF9BB /* Preview Content */,
 			);
@@ -183,12 +206,17 @@
 			files = (
 				298BCBE4273AC86C006EF9BB /* ContentView.swift in Sources */,
 				298BCBE2273AC86C006EF9BB /* KlimatApp.swift in Sources */,
+				295B3B78274360CE00F8127A /* Preferences.swift in Sources */,
+				295B3B7C274366B800F8127A /* RecentViewModel.swift in Sources */,
 				295B3B5C273D764100F8127A /* ForecastView.swift in Sources */,
 				298BCBF2273AE913006EF9BB /* Place.swift in Sources */,
+				295B3B7A2743632400F8127A /* SearchViewModel.swift in Sources */,
+				295B3B7E27436E2000F8127A /* Util.swift in Sources */,
 				295B3B6D2742F14500F8127A /* ForecastGroup.swift in Sources */,
 				295B3B6F2743300500F8127A /* PreferencesView.swift in Sources */,
+				295B3B7427435A1500F8127A /* ForecastViewModel.swift in Sources */,
+				295B3B7627435ECE00F8127A /* PreferencesViewModel.swift in Sources */,
 				295B3B61273D7D4900F8127A /* SearchView.swift in Sources */,
-				295B3B71274337EE00F8127A /* Preferences.swift in Sources */,
 				295B3B63273D83E800F8127A /* RecentView.swift in Sources */,
 				295B3B5F273D76FB00F8127A /* Forecast.swift in Sources */,
 			);
