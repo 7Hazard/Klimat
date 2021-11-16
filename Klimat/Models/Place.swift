@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class Place: Identifiable, Equatable, Codable {
+class Place: Identifiable, Equatable, Codable, Hashable {
     static func search(input: String) async -> [Place] {
         struct Json: Decodable {
             let place: String
@@ -39,6 +39,7 @@ class Place: Identifiable, Equatable, Codable {
     let lon: Float
     let lat: Float
     private var cachedForecast: ForecastGroup?
+    var lastAccessed = Date.now
     
     init(place: String, lon: Float = 0, lat: Float = 0) {
         self.name = place
@@ -50,20 +51,25 @@ class Place: Identifiable, Equatable, Codable {
         return lhs.lon == rhs.lon && lhs.lat == rhs.lat
     }
     
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(lon)
+        hasher.combine(lat)
+    }
+    
     func forecast() async -> ForecastGroup? {
         
-        // When first forecast is initiated, cache the place if not already cached
-        if let index = Place.cache.firstIndex(of: self) {
-            Place.cache.remove(at: index)
-        }
-        Place.cache.insert(self, at: 0) // Reorder last accessed to top
+        Place.cache.insert(self)
+        lastAccessed = Date.now
         
         // If cached and more fresh than 10 min, serve it
-        if(cachedForecast != nil && Date.now.timeIntervalSince(cachedForecast!.timeFetched) > 60 * 10) {
+        if(
+            cachedForecast != nil &&
+            Date.now.timeIntervalSince(cachedForecast!.timeFetched) > Preferences.updateInterval * 60
+        ) {
             // Update
             print("TIME SINCE LAST UPDATE: \(Date.now.timeIntervalSince(cachedForecast!.timeFetched))")
         }
-        else {
+        else if(cachedForecast != nil) {
             // Serve cached
             print("TIME SINCE LAST UPDATE: \(Date.now.timeIntervalSince(cachedForecast!.timeFetched))")
             return cachedForecast
@@ -122,8 +128,7 @@ class Place: Identifiable, Equatable, Codable {
         return cachedForecast ?? nil
     }
     
-    static func getFavourites() -> [Place] { cache.filter{ $0.isFavourite } }
-    func toggleFavourite() -> Bool {
+    func toggleFavourite() {
         if isFavourite {
             isFavourite = false
         } else {
@@ -131,14 +136,12 @@ class Place: Identifiable, Equatable, Codable {
         }
         
         Place.save()
-        
-        return isFavourite
     }
     
-    private static var cache: [Place] = {
+    private static var cache: Set<Place> = {
         do {
             if let data = UserDefaults.standard.value(forKey: "places") as? Data {
-                return try JSONDecoder().decode([Place].self, from: data)
+                return try JSONDecoder().decode(Set<Place>.self, from: data)
             }
         } catch {
             // Place structure probably changed, discard old cache
@@ -147,9 +150,13 @@ class Place: Identifiable, Equatable, Codable {
         
         return []
     }()
-    static func getCached() -> [Place] { return cache }
+    static func getCached() -> Set<Place> { return cache }
     private static func save() {
         UserDefaults.standard.set(try! JSONEncoder().encode(cache), forKey: "places")
+    }
+    static func deleteCached(_ place: Place) {
+        cache.remove(place)
+        save()
     }
     
     static func parseDate(_ isoDate: String) -> Date {

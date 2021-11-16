@@ -10,17 +10,17 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         TabView {
-            FavouritesView().tabItem{
-                Image(systemName: "star.square")
-                Text("Favourites")
+            RecentView().tabItem{
+                Image(systemName: "clock.arrow.circlepath")
+                Text("Recent")
             }
             SearchView().tabItem{
                 Image(systemName: "magnifyingglass")
                 Text("Search")
             }
-            RecentView().tabItem {
-                Image(systemName: "clock.arrow.circlepath")
-                Text("Recent")
+            PreferencesView().tabItem {
+                Image(systemName: "gear")
+                Text("Preferences")
             }
         }
     }
