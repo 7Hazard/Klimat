@@ -94,4 +94,11 @@ class ForecastViewModel : ObservableObject {
         Place.save()
         place = place // triggers a view state change
     }
+    
+    func getIcon(_ forecast: Forecast) -> String {
+        let hour = Calendar.current.component(.hour, from: forecast.time)
+        
+        if(hour > 6 && hour < 18) { return "day/\(forecast.icon)" }
+        else { return "night/\(forecast.icon)" }
+    }
 }

@@ -29,7 +29,7 @@ struct ForecastView: View {
                     Text("\(f.time.formatted())")
                         .font(.system(size: 16))
                     Spacer()
-                    Image("day/\(f.icon)")
+                    Image(vm.getIcon(f))
                     Spacer()
                     Text("\(f.temp, specifier: "%.1f")°C")
                         .font(.system(size: 32))
