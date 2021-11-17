@@ -35,10 +35,16 @@ class SearchViewModel : ObservableObject {
                 for j in allJson {
                     places.append(Place(place: j.place, lon: j.lon, lat: j.lat))
                 }
-                self.places = places
+                
+                let constPlaces = places
+                DispatchQueue.main.async {
+                    self.places = constPlaces
+                }
             } catch {
                 print(error)
-                self.places = Place.getCached().filter{ $0.name.uppercased().contains(input.uppercased()) }
+                DispatchQueue.main.async {
+                    self.places = Place.getCached().filter{ $0.name.uppercased().contains(input.uppercased()) }
+                }
             }
         }
     }
