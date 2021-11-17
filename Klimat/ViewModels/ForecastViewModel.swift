@@ -19,18 +19,21 @@ class ForecastViewModel : ObservableObject {
         Place.cache(place)
         
         // If cached and more fresh than 10 min, serve it
-        if(
-            place.cachedForecast != nil &&
-            Date.now.timeIntervalSince(place.cachedForecast!.timeFetched) > Preferences.updateInterval * 60
-        ) {
+        if(place.cachedForecast != nil) {
             // Update
             print("TIME SINCE LAST UPDATE: \(Date.now.timeIntervalSince(place.cachedForecast!.timeFetched))")
-            // ... continue
-        }
-        else if(place.cachedForecast != nil) {
-            // Serve cached
-            print("TIME SINCE LAST UPDATE: \(Date.now.timeIntervalSince(place.cachedForecast!.timeFetched))")
-            return
+            
+            if(Date.now.timeIntervalSince(place.cachedForecast!.timeFetched) < Preferences.updateInterval * 60)
+            {
+                // Serve cached
+                return
+            }
+            else if(!Network.isConnected)
+            {
+                // Serve cached, mark outdated
+                place.cachedForecast!.outdated = true
+                return
+            }
         }
         
         class Json: Decodable {

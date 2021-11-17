@@ -6,30 +6,15 @@
 //
 
 import Foundation
-import Network
 
 class ContentViewModel : ObservableObject {
-    @Published var isConnected = false
-    let monitor = NWPathMonitor()
-    let queue = DispatchQueue(label: "Monitor")
+    @Published var isConnected = Network.isConnected
     
     init() {
-        print("SHIT")
-        monitor.pathUpdateHandler = { path in
+        Network.subscribe {
             DispatchQueue.main.async {
-                print(path.status)
-                if path.status == .satisfied {
-                    self.isConnected = true
-                    print("connected")
-                }
-                else {
-                    self.isConnected = false
-                    print("disconnected")
-                }
-//                print("Is connected? \(self.isConnected)")
+                self.isConnected = Network.isConnected
             }
-//            print(path.isExpensive)
         }
-        monitor.start(queue: queue)
     }
 }
