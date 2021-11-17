@@ -13,15 +13,28 @@ struct ForecastView: View {
     var body: some View {
         VStack {
             // Info
-            HStack{
-                vm.place.cachedForecast != nil
-                ? Text("Forecast from \(vm.place.cachedForecast!.approvedTime.formatted())")
-                    .foregroundColor(vm.place.cachedForecast!.outdated ? Color.red : Color.white)
-                : Text("Could not fetch forecast").foregroundColor(Color.red)
+            HStack(spacing: 30) {
+                if(vm.place.cachedForecast != nil) {
+                    VStack {
+                        Text("Forecast from \(vm.place.cachedForecast!.approvedTime.formatted())")
+                            .foregroundColor(vm.place.cachedForecast!.outdated ? Color.red : Color.white)
+                        Text("Last updated \(vm.place.cachedForecast!.timeFetched.formatted())")
+                            .foregroundColor(vm.place.cachedForecast!.outdated ? Color.red : Color.white)
+                    }
+                } else {
+                    Text("Could not fetch forecast")
+                        .foregroundColor(Color.red)
+                }
+                
+                Divider()
+                
                 Button(action: { vm.toggleFavourite() }) {
                     Image(systemName: vm.place.isFavourite ? "star.fill" : "star")
                 }
             }
+            .fixedSize()
+            
+            Divider()
             
             // List
             List(vm.place.cachedForecast?.forecasts ?? []) { f in
