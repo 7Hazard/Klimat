@@ -8,19 +8,28 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var vm: ContentViewModel
+    
     var body: some View {
-        TabView {
-            RecentView(vm: RecentViewModel()).tabItem{
-                Image(systemName: "clock.arrow.circlepath")
-                Text("Recent")
+        VStack {
+            if(!vm.isConnected) {
+                Text("Disconnected from internet")
+                    .foregroundColor(.red)
             }
-            SearchView(vm: SearchViewModel()).tabItem{
-                Image(systemName: "magnifyingglass")
-                Text("Search")
-            }
-            PreferencesView(vm: PreferencesViewModel()).tabItem {
-                Image(systemName: "gear")
-                Text("Preferences")
+            
+            TabView {
+                RecentView(vm: RecentViewModel()).tabItem{
+                    Image(systemName: "clock.arrow.circlepath")
+                    Text("Recent")
+                }
+                SearchView(vm: SearchViewModel()).tabItem{
+                    Image(systemName: "magnifyingglass")
+                    Text("Search")
+                }
+                PreferencesView(vm: PreferencesViewModel()).tabItem {
+                    Image(systemName: "gear")
+                    Text("Preferences")
+                }
             }
         }
     }

@@ -20,6 +20,7 @@
 		295B3B7A2743632400F8127A /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295B3B792743632400F8127A /* SearchViewModel.swift */; };
 		295B3B7C274366B800F8127A /* RecentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295B3B7B274366B800F8127A /* RecentViewModel.swift */; };
 		295B3B7E27436E2000F8127A /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295B3B7D27436E2000F8127A /* Util.swift */; };
+		295B3B842745173800F8127A /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295B3B832745173800F8127A /* ContentViewModel.swift */; };
 		298BCBE2273AC86C006EF9BB /* KlimatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298BCBE1273AC86C006EF9BB /* KlimatApp.swift */; };
 		298BCBE4273AC86C006EF9BB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298BCBE3273AC86C006EF9BB /* ContentView.swift */; };
 		298BCBE6273AC86E006EF9BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 298BCBE5273AC86E006EF9BB /* Assets.xcassets */; };
@@ -41,6 +42,7 @@
 		295B3B792743632400F8127A /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		295B3B7B274366B800F8127A /* RecentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentViewModel.swift; sourceTree = "<group>"; };
 		295B3B7D27436E2000F8127A /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		295B3B832745173800F8127A /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		298BCBDE273AC86C006EF9BB /* Klimat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Klimat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		298BCBE1273AC86C006EF9BB /* KlimatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KlimatApp.swift; sourceTree = "<group>"; };
 		298BCBE3273AC86C006EF9BB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 				295B3B7527435ECE00F8127A /* PreferencesViewModel.swift */,
 				295B3B792743632400F8127A /* SearchViewModel.swift */,
 				295B3B7B274366B800F8127A /* RecentViewModel.swift */,
+				295B3B832745173800F8127A /* ContentViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -206,6 +209,7 @@
 			files = (
 				298BCBE4273AC86C006EF9BB /* ContentView.swift in Sources */,
 				298BCBE2273AC86C006EF9BB /* KlimatApp.swift in Sources */,
+				295B3B842745173800F8127A /* ContentViewModel.swift in Sources */,
 				295B3B78274360CE00F8127A /* Preferences.swift in Sources */,
 				295B3B7C274366B800F8127A /* RecentViewModel.swift in Sources */,
 				295B3B5C273D764100F8127A /* ForecastView.swift in Sources */,

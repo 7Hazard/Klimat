@@ -26,11 +26,11 @@ struct ForecastView: View {
                         .foregroundColor(Color.red)
                 }
                 
-                Divider()
+//                Divider()
                 
-                Button(action: { vm.toggleFavourite() }) {
-                    Image(systemName: vm.place.isFavourite ? "star.fill" : "star")
-                }
+//                Button(action: { vm.toggleFavourite() }) {
+//                    Image(systemName: vm.place.isFavourite ? "star.fill" : "star")
+//                }
             }
             .fixedSize()
             
@@ -57,5 +57,10 @@ struct ForecastView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
         .navigationTitle(vm.place.name)
+        .toolbar {
+            Button(action: { vm.toggleFavourite() }) {
+                Image(systemName: vm.place.isFavourite ? "star.fill" : "star")
+            }
+        }
     }
 }

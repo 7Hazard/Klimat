@@ -16,7 +16,7 @@ class ForecastViewModel : ObservableObject {
     
     func update() async {
         place.lastAccessed = Date.now
-        Place.addToCache(place)
+        Place.cache(place)
         
         // If cached and more fresh than 10 min, serve it
         if(
