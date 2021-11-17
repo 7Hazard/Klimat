@@ -13,7 +13,7 @@ struct ForecastView: View {
     var body: some View {
         VStack {
             // Info
-            HStack(spacing: 30) {
+            HStack {
                 if(vm.place.cachedForecast != nil) {
                     VStack {
                         Text("Forecast from \(vm.place.cachedForecast!.approvedTime.formatted())")
@@ -25,12 +25,6 @@ struct ForecastView: View {
                     Text("Could not fetch forecast")
                         .foregroundColor(Color.red)
                 }
-                
-//                Divider()
-                
-//                Button(action: { vm.toggleFavourite() }) {
-//                    Image(systemName: vm.place.isFavourite ? "star.fill" : "star")
-//                }
             }
             .fixedSize()
             
@@ -45,7 +39,7 @@ struct ForecastView: View {
                     Image(vm.getIcon(f))
                     Spacer()
                     Text("\(f.temp, specifier: "%.1f")°C")
-                        .font(.system(size: 32))
+                        .font(.system(size: 28))
                 }
             }
             .refreshable {
