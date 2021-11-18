@@ -15,7 +15,7 @@ struct RecentView: View {
             List {
                 ForEach(vm.places) { place in
                     NavigationLink(destination: ForecastView(vm: ForecastViewModel(place))) {
-                        Label(place.name, systemImage: place.isFavourite ? "star.fill" : "clock.arrow.circlepath")
+                        Label(place.fullName, systemImage: place.isFavourite ? "star.fill" : "clock.arrow.circlepath")
                     }
                 }
                 .onDelete { indexes in

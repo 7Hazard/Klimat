@@ -50,7 +50,7 @@ struct ForecastView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
         }
-        .navigationTitle(vm.place.name)
+        .navigationTitle(vm.place.fullName)
         .toolbar {
             Button(action: { vm.toggleFavourite() }) {
                 Image(systemName: vm.place.isFavourite ? "star.fill" : "star")

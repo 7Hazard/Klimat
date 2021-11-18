@@ -20,6 +20,7 @@ class SearchViewModel : ObservableObject {
             
             struct Json: Decodable {
                 let place: String
+                let county: String?
                 let lon: Float
                 let lat: Float
             }
@@ -33,7 +34,7 @@ class SearchViewModel : ObservableObject {
                 var places: [Place] = []
                 places.reserveCapacity(allJson.count)
                 for j in allJson {
-                    places.append(Place(place: j.place, lon: j.lon, lat: j.lat))
+                    places.append(Place(place: j.place, county: j.county, lon: j.lon, lat: j.lat))
                 }
                 
                 let constPlaces = places
@@ -47,12 +48,5 @@ class SearchViewModel : ObservableObject {
                 }
             }
         }
-    }
-    
-    func getName(_ place: Place) -> String {
-        let countWithSameName = places.filter{ $0.name == place.name }.count
-        return countWithSameName > 1
-        ? "\(place.name) (\(place.lon), \(place.lat))"
-        : place.name
     }
 }

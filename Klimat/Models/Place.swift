@@ -11,13 +11,24 @@ import SwiftUI
 class Place: Identifiable, Equatable, Codable, Hashable {
     var isFavourite = false
     let name: String
+    let county: String?
     let lon: Float
     let lat: Float
     var cachedForecast: ForecastGroup?
     var lastAccessed = Date.now
+    var fullName: String {
+        get {
+            if(county != nil) {
+                return "\(name), \(county!)"
+            } else {
+                return name
+            }
+        }
+    }
     
-    init(place: String, lon: Float = 0, lat: Float = 0) {
+    init(place: String, county: String?, lon: Float = 0, lat: Float = 0) {
         self.name = place
+        self.county = county
         self.lon = lon
         self.lat = lat
     }

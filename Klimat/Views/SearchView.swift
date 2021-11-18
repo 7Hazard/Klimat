@@ -13,7 +13,7 @@ struct SearchView: View {
     var body: some View {
         NavigationView {
             List(vm.places) { place in
-                NavigationLink(vm.getName(place), destination: ForecastView(vm: ForecastViewModel(place)))
+                NavigationLink(place.fullName, destination: ForecastView(vm: ForecastViewModel(place)))
             }
             .searchable(text: $vm.searchText, placement: .navigationBarDrawer(displayMode: .always))
             .disableAutocorrection(true)
