@@ -30,6 +30,7 @@ class RecentViewModel : ObservableObject {
     
     func delete(_ index: Int) {
         Place.uncache(places[index])
+        Place.save()
         places.remove(at: index)
     }
 }

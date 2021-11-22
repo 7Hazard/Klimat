@@ -57,7 +57,9 @@ class Place: Identifiable, Equatable, Codable, Hashable {
     }()
     static func getCached() -> Set<Place> { return cache }
     static func cache(_ place: Place) { cache.insert(place) }
-    static func uncache(_ place: Place) { cache.remove(place) }
+    static func uncache(_ place: Place) {
+        cache.remove(place)
+    }
     static func save() {
         UserDefaults.standard.set(try! JSONEncoder().encode(cache), forKey: "places")
     }
