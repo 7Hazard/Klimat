@@ -13,8 +13,11 @@ struct ContentView: View {
     var body: some View {
         VStack {
             if(!vm.isConnected) {
-                Text("Disconnected from internet")
-                    .foregroundColor(.red)
+                HStack {
+                    Text("Disconnected from internet")
+                        .foregroundColor(.red)
+                    Image(systemName: "wifi.slash")
+                }
             }
             
             TabView {
